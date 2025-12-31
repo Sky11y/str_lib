@@ -1,4 +1,4 @@
-NAME		= libfn_string.a
+NAME		= libstr_lib.a
 
 SRCDIR		= src/
 INCDIR		= inc/
