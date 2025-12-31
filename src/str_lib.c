@@ -1,4 +1,4 @@
-#include "fn_string.h"
+#include "str_lib.h"
 
 size_t str_len(const char* restrict str)
 {

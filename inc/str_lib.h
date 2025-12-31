@@ -1,5 +1,5 @@
-#ifndef FN_STRING_H
-# define FN_STRING_H
+#ifndef STR_LIB_H 
+# define STR_LIB_H
 
 #include <stdlib.h>
 #include <string.h>

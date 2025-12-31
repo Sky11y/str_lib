@@ -1,4 +1,4 @@
-#include "fn_string.h"
+#include "str_lib.h"
 
 static size_t no_of_strings_escape(const char *str, char c, char escape)
 {
