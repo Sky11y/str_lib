@@ -5,7 +5,7 @@ INCDIR		= inc/
 BUILDDIR	= build/
 
 CC			= gcc
-CFLAGS		= -Wall -Wextra -Werror -pedantic -I$(INCDIR)
+CFLAGS		= -Wall -O2 -Wextra -Werror -pedantic -I$(INCDIR)
 
 SRC			= $(wildcard $(SRCDIR)*.c)
 OBJ			= $(SRC:$(SRCDIR)%.c=$(BUILDDIR)%.o)

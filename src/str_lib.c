@@ -1,26 +1,29 @@
 #include "fn_string.h"
 
-size_t fn_strlen(const char* restrict str)
+size_t str_len(const char* restrict str)
 {
-	size_t i = 0;
+	size_t len = 0;
 
-	while (str && str[i]) {
-		++i;
+	if (!str) {
+		return 0;
 	}
-	return i;
+	
+	while (str[len]) {
+		++len;
+	}
+	return len;
 }
 
-void strtrim(char *restrict str, const char* restrict chars)
+void str_trim(char *restrict str, const char* restrict chars)
 {
 	size_t i = 0;
-	size_t j = fn_strlen(str);
+	size_t j = str_len(str);
 
-	//empty string -> return
 	if (i == j) {
 		return ;
 	}
 
-	while (i < j && is_any_of(str[i], chars) == 1) {
+	while (i < j && str_is_any_of(str[i], chars) == 1) {
 		++i;
 	}
 
@@ -30,7 +33,7 @@ void strtrim(char *restrict str, const char* restrict chars)
 		return ;
 	}
 
-	while (j > i && is_any_of(str[j - 1], chars) == 1) {
+	while (j > i && str_is_any_of(str[j - 1], chars) == 1) {
 		--j;
 	}
 
@@ -38,12 +41,16 @@ void strtrim(char *restrict str, const char* restrict chars)
 	str[j - i] = '\0';
 }
 
-void strtrim_front(char *restrict str, const char *restrict chars)
+void str_trim_front(char *restrict str, const char *restrict chars)
 {
 	size_t i = 0;
 	size_t len;
 
-	while (str[i] && is_any_of(str[i], chars) == 1) {
+	if (!str) {
+		return ;
+	}
+
+	while (str[i] && str_is_any_of(str[i], chars) == 1) {
 		++i;
 	}
 
@@ -52,27 +59,27 @@ void strtrim_front(char *restrict str, const char *restrict chars)
 		return ;
 	}
 
-	len = fn_strlen(str) - i;
+	len = str_len(str) - i;
 	memmove(str, &str[i], len);
 	str[len] = '\0';
 }
 
-void strtrim_back(char *restrict str, const char *restrict chars)
+void str_trim_back(char *restrict str, const char *restrict chars)
 {
-	size_t i = fn_strlen(str);
+	size_t i = str_len(str);
 
 	if (i == 0) {
 		return ;
 	}
 
-	while (i > 0 && is_any_of(str[i - 1], chars) == 1) {
+	while (i > 0 && str_is_any_of(str[i - 1], chars) == 1) {
 		--i;
 	}
 
 	str[i] = '\0';
 }
 
-void replace_all(char *restrict str, char to_replace, char c)
+void str_replace_all(char *restrict str, char to_replace, char c)
 {
 	size_t i = 0;
 
@@ -88,7 +95,7 @@ void replace_all(char *restrict str, char to_replace, char c)
 	}
 }
 
-size_t safe_strlcpy(char *restrict dst, const char *restrict src, size_t dsize)
+size_t str_cpy(char *restrict dst, const char *restrict src, size_t dsize)
 {
 	size_t src_len = 0;
 	size_t i;
@@ -109,35 +116,35 @@ size_t safe_strlcpy(char *restrict dst, const char *restrict src, size_t dsize)
 	return src_len;
 }
 
-int contains(const char *restrict test, const char *restrict chars)
+int str_contains(const char *restrict test, const char *restrict chars)
 {
 	size_t i;
 
-	if (test == NULL) {
+	if (!test) {
 		return -1;
 	}
 
-	if (chars == NULL) {
+	if (!chars) {
 		return 1;
 	}
 
 	for (i = 0; test[i]; ++i) {
-		if (is_any_of(test[i], chars) == 1) {
-				return 1;
+		if (str_is_any_of(test[i], chars) == 1) {
+			return 1;
 		}
 	}
 	return 0;
 }
 
-int is_any_of(const char test, const char *restrict chars)
+int str_is_any_of(const char test, const char *restrict chars)
 { 
 	size_t i;
 
-	if (test == '\0') {
+	if (!test) {
 		return -1;
 	}
 
-	if (chars == NULL) {
+	if (!chars) {
 		return 1;
 	}
 
@@ -149,7 +156,7 @@ int is_any_of(const char test, const char *restrict chars)
 	return 0;
 }
 
-int is_all_of(const char *restrict test, const char *restrict chars)
+int str_is_all_of(const char *restrict test, const char *restrict chars)
 {
 	size_t i;
 	
@@ -162,7 +169,7 @@ int is_all_of(const char *restrict test, const char *restrict chars)
 	}
 
 	for (i = 0; test[i]; ++i) {
-		if (is_any_of(test[i], chars) == 0) {
+		if (str_is_any_of(test[i], chars) == 0) {
 			return 0;
 		}
 	}

@@ -1,0 +1,118 @@
+#ifndef FN_STRING_H
+# define FN_STRING_H
+
+#include <stdlib.h>
+#include <string.h>
+
+/* STR_LEN
+ * Calculates the lenght of the *str*.
+ * Returns the length of str or 0 if no *str* is present.
+ */
+size_t str_len(const char* restrict str);
+
+/* STR_TRIM
+ * Remove all the *chars* from the beginning and end of *str*.
+ * Important! This function modifies the *str* in place.
+ */
+void str_trim(char *restrict str, const char* restrict chars);
+
+/* STR_TRIM_FRONT
+ * Remove all the *chars* from the beginning of *str*.
+ * Important! This function modifies the *str* in place.
+ */
+void str_trim_front(char *restrict str, const char *restrict chars);
+
+/* STR_TRIM_BACK
+ * Remove all the *chars* from the back of hte *str*.
+ * Important! This function modifies the *str* in place.
+ */
+void str_trim_back(char *restrict str, const char *restrict chars);
+
+/* STR_REPLACE ALL
+ * Replace every occurence of *to_replace* with *c* in *str*
+ * Note. It is callers responsibility to make sure *c* and *to_replace* are printable chars.
+ * Important! This function modifies the *str* in place.
+ */
+void str_replace_all(char *restrict str, char to_replace, char c);
+
+/* STR_LCPY
+ * Copies max. *dsize* - 1 chars from *src* to *dst*.
+ * Guarantees to '\0'-terminate the *dst* (hence max. dsize - 1).
+ * Returns the number of characters copied, exluding the terminating '\0'.
+ * Note. It is users responsiblity to make sure the size of *dst* is large enough.
+ */
+size_t str_cpy(char *restrict dst, const char *restrict src, size_t dsize);
+
+/* STR_CONTAINS
+ * Checks if string *test* contains any of the characters in *chars*.
+ * Returns 1 if any of the *chars* is found in *test* and 0 if not.
+ * Note. If *test* points to NULL returns -1.
+ * Note. If *test* is valid and *chars* is empty returns 1 (i.e. always true when compared to nothing).
+ */
+int str_contains(const char *restrict test, const char *restrict chars);
+
+/* STR_IS_ANY_OF
+ * Checks if a character *test* is any of the character in *chars*.
+ * Returns 1 if test matches any of the *chars*, and 0 if not.
+ * Note. If *test* is null-character returns -1.
+ * Note. If *test* is valid and *chars* is empty returns 1 (i.e. always true when compared to nothing).
+ */
+int str_is_any_of(const char test, const char *restrict chars);
+
+/* STR_IS_ALL_OFF
+ * Check if all the characters in *test* are one of *chars*
+ * Returns 1 if true, and 0 if not.
+ * Note. If *test* is empty returns -1.
+ * Note. If *test* is valid and *chars* is empty returs 1 (i.e. always true when compared to nothing).
+ */
+int str_is_all_of(const char *restrict test, const char *restrict chars);
+
+/* STR_TO_LOWER
+ * Change all capital characters of *str* to lower characters.
+ * Important! This function modifies the *str* in place.
+ */
+void str_to_lower(char *restrict str);
+
+/* STR_TO_UPPER
+ * Change all lower characters of *str* to capital characters.
+ * Important! This function modifies the *str* in place.
+ */
+void str_to_upper(char *restrict str);
+
+/* STR_SQUEEZE
+ * Removes all the characters fomr *str* presented in *chars*
+ * Important! This function modifies *str* in place.
+ */
+void str_squeeze(char *restrict str, const char *restrict chars);
+
+/* STR_SPLIT
+ * Separates *str* to an array of strings by *delim*.
+ * Delimiting character is excluded from the resulting strings
+ * Last element of array will be NULL.
+ * If no *str* or *delim* is provided return (void *)0.
+ *
+ */
+char **str_split(const char *restrict str, char delim);
+
+/* STR_SPLIT_ESCAPE
+ * Similar to str_split but allows escapes of delimiter.
+ * Escaping is useful for example splitting csv-information.
+ * Notice that the escaping characters are included in the resulting strings.
+ * 	- str_trim can be used to strip them of if necessary.
+ * If *str* and *delim* are valid but *escape* is not provided, calls str_split(str, delim)
+ * example 1. escape has no effect
+ * 		fn_split_escape("Split by space", ' ', '"')
+ * 		returns {{"Split"}{"by"}{"space"}}
+ * example 2. escape used for csv type string
+ * 		fn_split_escape("str1,\"str2,has,commas\",str3", ',', '"')
+ * 		returns {{"str1"}{"\"str2,has,commas\""}{"str3"}}
+ */
+char **str_split_escape(const char *restrict str, char delim, char escape);
+
+/* STR_SPLIT_INCLUSIVE
+ * Same as str_split but delimiting character is included in the resulting strings.
+ */
+char **str_split_inclusive(const char *restrict str, char delim);
+
+
+#endif
