@@ -57,7 +57,7 @@ char ** str_split_escape(const char *restrict str, char delim, char escape)
 	char	  no_of_escapes;
 
 	if (!str || !delim) {
-		return (void *)0;
+		return NULL;
 	}
 
 	if (!escape) {
@@ -67,7 +67,7 @@ char ** str_split_escape(const char *restrict str, char delim, char escape)
 	count = no_of_strings_escape(str, delim, escape);
 	arr = (char **)malloc(sizeof(char *) * (count + 1));
 	if (!arr) {
-		return (void *)0;
+		return NULL;
 	}
 
 	no_of_escapes = 0;
@@ -81,16 +81,16 @@ char ** str_split_escape(const char *restrict str, char delim, char escape)
 			arr[word_no] = (char *)malloc(sizeof(char) * len);
 			if (!arr[word_no]) {
 				clean_up(arr, word_no);
-				return (void *)0;
+				return NULL;
 			}
-			str_cpy(arr[word_no], &str[word_start], len);
+			str_ncpy(arr[word_no], &str[word_start], len);
 			++word_no;
 			word_start = i + 1;
 		}
 	}
 
 	//TODO(): If uneven number of escapes, should return error?
-	arr[word_no] = (void *)0;
+	arr[word_no] = NULL;
 	return arr;
 }
 
@@ -100,13 +100,13 @@ char **str_split(const char *restrict str, char delim)
 	size_t 	  i, word_start, word_no, count;
 
 	if (!str || !delim) {
-		return (void *)0;
+		return NULL;
 	}
 
 	count = no_of_strings(str, delim);
 	arr = (char **)malloc(sizeof(char *) * (count + 1));
 	if (!arr) {
-		return (void *)0;
+		return NULL;
 	}
 
 	for (i =  word_start = word_no = 0; word_no < count; ++i) {
@@ -115,15 +115,15 @@ char **str_split(const char *restrict str, char delim)
 			arr[word_no] = (char *)malloc(sizeof(char) * len);
 			if (!arr[word_no]) {
 				clean_up(arr, word_no);
-				return (void *)0;
+				return NULL;
 			}
-			str_cpy(arr[word_no], &str[word_start], len);
+			str_ncpy(arr[word_no], &str[word_start], len);
 			++word_no;
 			word_start = i + 1;
 		}
 	}
 
-	arr[word_no] = (void *)0;
+	arr[word_no] = NULL;
 	return arr;
 }
 
@@ -133,13 +133,13 @@ char **str_split_inclusive(const char *restrict str, char delim)
 	size_t 	  i, word_start, word_no, count;
 
 	if (!str || !delim) {
-		return (void *)0;
+		return NULL;
 	}
 
 	count = no_of_strings(str, delim);
 	arr = (char **)malloc(sizeof(char *) * (count + 1));
 	if (!arr) {
-		return (void *)0;
+		return NULL;
 	}
 
 	for (i = word_start = word_no = 0; word_no < count; ++i) {
@@ -148,14 +148,14 @@ char **str_split_inclusive(const char *restrict str, char delim)
 			arr[word_no] = (char *)malloc(sizeof(char) * len);
 			if (!arr[word_no]) {
 				clean_up(arr, word_no);
-				return (void *)0;
+				return NULL;
 			}
-			str_cpy(arr[word_no], &str[word_start], len);
+			str_ncpy(arr[word_no], &str[word_start], len);
 			++word_no;
 			word_start = i + 1;
 		}
 	}
 
-	arr[word_no] = (void *)0;
+	arr[word_no] = NULL;
 	return arr;
 }

@@ -35,13 +35,27 @@ void str_trim_back(char *restrict str, const char *restrict chars);
  */
 void str_replace_all(char *restrict str, char to_replace, char c);
 
-/* STR_LCPY
+/* STR_CPY
+ * Tries to copy *src* to *dst* and add a terminating to the end of *dst* '\0'
+ * Returns the number of characters copied, excluding the terminating '\0'.
+ * Important! If *src* is longer than *dst* will cause UB.
+ */
+size_t str_cpy(char *restrict dst, const char *restrict src);
+
+/* STR_NCPY
  * Copies max. *dsize* - 1 chars from *src* to *dst*.
  * Guarantees to '\0'-terminate the *dst* (hence max. dsize - 1).
  * Returns the number of characters copied, exluding the terminating '\0'.
  * Note. It is users responsiblity to make sure the size of *dst* is large enough.
  */
-size_t str_cpy(char *restrict dst, const char *restrict src, size_t dsize);
+size_t str_ncpy(char *restrict dst, const char *restrict src, size_t dsize);
+
+/* STR_CLONE
+ * Clones the *src* to a newly allocated memory
+ * On success returns a pointer to the clone.
+ * On failure returns NULL.
+ */
+char *str_clone(const char* restrict src);
 
 /* STR_CONTAINS
  * Checks if string *test* contains any of the characters in *chars*.
@@ -89,8 +103,7 @@ void str_squeeze(char *restrict str, const char *restrict chars);
  * Separates *str* to an array of strings by *delim*.
  * Delimiting character is excluded from the resulting strings
  * Last element of array will be NULL.
- * If no *str* or *delim* is provided return (void *)0.
- *
+ * If no *str* or *delim* is provided return NULL 
  */
 char **str_split(const char *restrict str, char delim);
 

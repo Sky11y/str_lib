@@ -95,7 +95,23 @@ void str_replace_all(char *restrict str, char to_replace, char c)
 	}
 }
 
-size_t str_cpy(char *restrict dst, const char *restrict src, size_t dsize)
+size_t str_cpy(char *restrict dst, const char *restrict src)
+{
+	size_t i;
+
+	if (!dst || !src) {
+		return 0;
+	}
+
+	for (i = 0; src[i]; ++i) {
+		dst[i] = src[i];
+	}
+
+	dst[i] = '\0';
+	return i;
+}
+
+size_t str_ncpy(char *restrict dst, const char *restrict src, size_t dsize)
 {
 	size_t src_len = 0;
 	size_t i;
