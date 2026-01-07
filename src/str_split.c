@@ -2,12 +2,11 @@
 
 static size_t no_of_strings_escape(const char *str, char c, char escape)
 {
-	size_t			i;
-	size_t			count;
+	size_t			i, count;
 	unsigned char	no_of_escapes;
 
-	no_of_escapes = 0;
-	for (i = count = 0; str[i]; ++i) {
+	no_of_escapes = count = 0;
+	for (i = 0; str[i]; ++i) {
 		if (str[i] == escape) {
 			no_of_escapes ^= 1;
 			continue ;
@@ -31,10 +30,10 @@ static void clean_up(char **arr, size_t words)
 
 static size_t no_of_strings(const char *str, char c)
 {
-	size_t	i;
-	size_t	count;
+	size_t	i, count;
 
-	for (i = count = 0; str[i]; ++i) {
+	count = 0;
+	for (i = 0; str[i]; ++i) {
 		if (str[i] == c) {
 			++count;
 		}
@@ -42,19 +41,11 @@ static size_t no_of_strings(const char *str, char c)
 	return count + 1;
 }
 
-/*
- * Note. The resulting strings will not include the delimiter, i.e. delimiter is changed to '\0' character.
- * example 1.
- * fn_split("Split by space", 32, '\0')
- * returns {{"Split"},{"by"},{"space"}}
- * fn_split("Ignore \"quotes and split by\" space", 32, '"')
- * returns {{"Ignore"},{"quotes and split by"},{"space"}}
- */
-char ** str_split_escape(const char *restrict str, char delim, char escape)
+char **str_split_escape(const char *restrict str, char delim, char escape)
 {
 	char	**arr;
-	size_t 	  i, word_start, word_no, count;
-	char	  no_of_escapes;
+	size_t 	i, word_start, word_no, count;
+	char	no_of_escapes;
 
 	if (!str || !delim) {
 		return NULL;
@@ -97,7 +88,7 @@ char ** str_split_escape(const char *restrict str, char delim, char escape)
 char **str_split(const char *restrict str, char delim)
 {
 	char	**arr;
-	size_t 	  i, word_start, word_no, count;
+	size_t 	i, word_start, word_no, count;
 
 	if (!str || !delim) {
 		return NULL;
@@ -109,7 +100,8 @@ char **str_split(const char *restrict str, char delim)
 		return NULL;
 	}
 
-	for (i =  word_start = word_no = 0; word_no < count; ++i) {
+	word_start = word_no = 0;
+	for (i = 0; word_no < count; ++i) {
 		if (str[i] == delim || str[i] == '\0') {
 			size_t len = i - word_start + 1;
 			arr[word_no] = (char *)malloc(sizeof(char) * len);
@@ -130,7 +122,7 @@ char **str_split(const char *restrict str, char delim)
 char **str_split_inclusive(const char *restrict str, char delim)
 {
 	char	**arr;
-	size_t 	  i, word_start, word_no, count;
+	size_t 	i, word_start, word_no, count;
 
 	if (!str || !delim) {
 		return NULL;
@@ -142,7 +134,8 @@ char **str_split_inclusive(const char *restrict str, char delim)
 		return NULL;
 	}
 
-	for (i = word_start = word_no = 0; word_no < count; ++i) {
+	word_start = word_no = 0;
+	for (i = 0; word_no < count; ++i) {
 		if (str[i] == delim || str[i] == '\0') {
 			size_t len = str[i] == '\0' ? i - word_start + 1 : i - word_start + 2;
 			arr[word_no] = (char *)malloc(sizeof(char) * len);

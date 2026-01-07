@@ -15,7 +15,7 @@ char *str_clone(const char *restrict src)
 		return NULL;
 	}
 
-	str_cpy(clone, src);
+	memcpy(clone, src, len);
 	
 	return (clone);
 }
