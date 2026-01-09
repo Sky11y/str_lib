@@ -1,16 +1,16 @@
 # What is it about
-C lacks of string manipulation fucntions.
-This repository is to make my life easier by having the string realted functions in one place.
+C lacks many useful functions related to strings.
+This repository is to make my life easier by having the string related functions in one place.
 Thought probably all of the functions have been implemented before I chose not to use other programmers functions. After all this is also a learning project.
 
 # Information
 - As this is constantly evolving library this list is updated every now and then.
 - All of the functions are prefixed with *str_*.
-- There are some implementations of libc functions which I might delete later. These functions have bullet point:
+- There are some implementations of libc functions which I might delete later. These functions have a bullet point:
   - "❓Since this is in libc, might delete this later."
 
 # Contents
-Below is listed the function names, prtotypes and a brief explantions. More information about the functions can be found in str_lib.h
+Below is listed the function names, prototypes and brief explantions. More information about the functions can be found in str_lib.h
 
 - STR_LEN
   - `size_t str_len(const char* restrict str);`
@@ -112,7 +112,13 @@ Below is listed the function names, prtotypes and a brief explantions. More info
   - This function is useful for wrapping long string to limited length lines.
   - If a word is longer than *n* force wraps the word on two lines.
 
-# Possible functions to implement
+# Ideas/improvements
+## 1 Separate the functions in different files by type, e.g.
+- str_manip.c - functions that manipulate the original string
+- str_check.c - functions that only test the string and return value according to the result
+- str_alloc.c - functions that allocate memory and return either a string or an array of strings 
+
+## 2 Possible functions to implement
 - STR_REVERSE
   - reverses a string in place.
 - STR_IN_STR
