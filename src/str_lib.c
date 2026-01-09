@@ -242,3 +242,14 @@ void str_squeeze(char *restrict str, const char *restrict chars)
 	}
 	str[j] = '\0';
 }
+
+void str_free_arr(char **arr)
+{
+	size_t i = 0;
+	
+	while (arr[i]) {
+		free(arr[i]);
+		++i;
+	}
+	free(arr);
+}

@@ -55,7 +55,15 @@ size_t str_ncpy(char *restrict dst, const char *restrict src, size_t dsize);
  * On success returns a pointer to the clone.
  * On failure returns NULL.
  */
-char *str_clone(const char* restrict src);
+char *str_clone(const char *restrict src);
+
+/* STR_SLICE
+ * Clones a *src* from *start* until (not including) *end*.
+ * On success returns a pointer to the slice.
+ * On failure return NULL.
+ * If end == -1 returns a slice from *start* until the end of *src*.
+ */
+char *str_slice(const char *restrict, int start, int end);
 
 /* STR_CONTAINS
  * Checks if string *test* contains any of the characters in *chars*.
@@ -99,6 +107,13 @@ void str_to_upper(char *restrict str);
  */
 void str_squeeze(char *restrict str, const char *restrict chars);
 
+/* STR_FREE_ARR
+ * Frees (deallocates) an array of strings and the array itself.
+ * This function assumes the last element of array being NULL.
+ * By using only array functions of this library the previous is guaranteed.
+ */
+void str_free_arr(char **arr);
+
 /* STR_SPLIT
  * Separates *str* to an array of strings by *delim*.
  * Delimiting character is excluded from the resulting strings
@@ -115,10 +130,10 @@ char **str_split(const char *restrict str, char delim);
  * If *str* and *delim* are valid but *escape* is not provided, calls str_split(str, delim)
  * example 1. escape has no effect
  * 		fn_split_escape("Split by space", ' ', '"')
- * 		returns {{"Split"}{"by"}{"space"}}
+ * 		returns {{"Split"}{"by"}{"space"}{NULL}}
  * example 2. escape used for csv type string
  * 		fn_split_escape("str1,\"str2,has,commas\",str3", ',', '"')
- * 		returns {{"str1"}{"\"str2,has,commas\""}{"str3"}}
+ * 		returns {{"str1"}{"\"str2,has,commas\""}{"str3"}{NULL}}
  */
 char **str_split_escape(const char *restrict str, char delim, char escape);
 
@@ -131,7 +146,7 @@ char **str_split_inclusive(const char *restrict str, char delim);
  * Wraps *str* to around *n* length of strings.
  * If the nth chracacter of a string is not whitespace, finds the previous whitespace character and starts the next string with the word that had the nth character.
  * if word in *str* is longer than *n* forces the wrapping inside that word.
- * On success returns a heap allocated array of strings (lines).
+ * On success returns a heap allocated array of strings (lines) with the last element being NULL.
  * On failure returns NULL.
  * Notice that the function does not check if *str* contains newline (\n) characters itself. 
  * example 1. str_wrap("This is line that should be wrapped by every 10th character", 10);
@@ -140,13 +155,14 @@ char **str_split_inclusive(const char *restrict str, char delim);
  * 		Since most of the ^'s are inside words the returned string has this kind of presentation
  * 		This is line that should be wrapped by every 10th character
  * 		       ^         ^         ^          ^          ^         ^    
- * 		returns {{"This is},{"line that"}{"should be"}{"wrapped by"}{"every 10th"}{"character"}} 
+ * 		returns {{"This is},{"line that"}{"should be"}{"wrapped by"}{"every 10th"}{"character"}{NULL}} 
  */
 char **str_wrap(const char *restrict str, size_t n);
 
+//NOTE(Jyri): Not impelemented. Suits better in io_lib project and probably doesn't need allocations either.
 /* STR_WRAP_AND_PRINT
  * Uses str_wrap to wrap the string by around *n* characters, prints the lines and frees the memory.
  */
 //void str_wrap_and_print(const char *restrict str, size_t n);
 
-#endif
+#endif //STR_LIB_H

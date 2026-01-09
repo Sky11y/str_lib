@@ -53,6 +53,11 @@ Below is listed the function names, prtotypes and a brief explantions. More info
   - `char *str_clone(const char *restrict src);`
   - Clones *src* and returns a pointer to newly allocated string.
 
+- STR_SLICE
+  - `char *str_slice(const hcar *restrict src, int start, int end);`
+  - Clones a part of the *src* and return a pointer to newly allocated string.
+  - The slice is from *start* until *end - 1*, so the *end* is exclusive.
+
 - STR_CONTAINS
   - `int str_contains(const char *restrict test, const char *chars);`
   - Checks if *test* contains any of the *chars*.
@@ -80,6 +85,11 @@ Below is listed the function names, prtotypes and a brief explantions. More info
   - Removes all the *chars* from *str*.
   - Note. modifies the original string.
 
+- STR_FREE_ARR
+  - `void str_free_arr(char **arr);`
+  - Frees (deallocates) an array (*arr*) of strings and the array itself.
+  - Note. assumes the last element of the array to be NULL.
+
 - STR_SPLIT
 - `char **str_split(const char *restrict str, char delim);`
   - Separates *str* to an array of strings by *delim*.
@@ -101,3 +111,27 @@ Below is listed the function names, prtotypes and a brief explantions. More info
   - Separates *str* to an array of strings that are at maximum *n* characters long.
   - This function is useful for wrapping long string to limited length lines.
   - If a word is longer than *n* force wraps the word on two lines.
+
+# Possible functions to implement
+- STR_REVERSE
+  - reverses a string in place.
+- STR_IN_STR
+  - check if a string is found in string.
+- STR_JOIN
+  - concatenates two strings together and returns a new string
+- STR_ARR_JOIN
+  - concatenates a string to every string in an array.
+- STR_ARR_SORT
+  - sort an array of strings.
+- STR_TITLE
+  - capitalize every word starting with lowercase letter.
+- STR_FIND
+  - find the first matching character in string and return its index.
+- STR_RFIND
+  - find the last matching character in string and return its index.
+- STR_COUNT
+  - count the character occurences in string.
+- STR_COUNT_STR
+  - count the str occurences in string.
+- STR_REPLACE_STR
+  - replace occurences of string in string.

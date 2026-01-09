@@ -17,5 +17,36 @@ char *str_clone(const char *restrict src)
 
 	memcpy(clone, src, len);
 	
-	return (clone);
+	return clone;
+}
+
+char *str_slice(const char *restrict src, int start, int end)
+{
+	char	*slice;
+	int		len;
+
+	if (!src || start < 0 || end < -1) {
+		return NULL;
+	}
+
+	if (end == -1) {
+		len = str_len(src);
+	}
+	else {
+		len = end - start;
+	}
+
+	if (len < 1) {
+		return NULL;
+	}
+
+	slice = (char *)malloc(sizeof(char) * (len + 1));
+	if (!slice) {
+		return NULL;
+	}
+
+	memcpy(slice, &src[start], len);
+	slice[len] = '\0';
+
+	return slice;
 }
