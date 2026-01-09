@@ -91,7 +91,7 @@ Below is listed the function names, prtotypes and a brief explantions. More info
   - Note. assumes the last element of the array to be NULL.
 
 - STR_SPLIT
-- `char **str_split(const char *restrict str, char delim);`
+  - `char **str_split(const char *restrict str, char delim);`
   - Separates *str* to an array of strings by *delim*.
   - Does not include the *delim* to the new strings.
 
