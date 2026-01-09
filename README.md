@@ -4,14 +4,13 @@ This repository is to make my life easier by having the string realted functions
 Thought probably all of the functions have been implemented before I chose not to use other programmers functions. After all this is also a learning project.
 
 # Information
-As this is constantly evolving library this list is updated every now and then.
-All of the functions are prefixed with *str_*.
-There are some implementations of libc functions which I might delete later. These functions have bullet point:
-
-"❓Since this is in libc, might delete this later."
+- As this is constantly evolving library this list is updated every now and then.
+- All of the functions are prefixed with *str_*.
+- There are some implementations of libc functions which I might delete later. These functions have bullet point:
+  - "❓Since this is in libc, might delete this later."
 
 # Contents
-Below is listed the function name, it's prtotype and a brief explantion. More information about the functions can be found in str_lib.h
+Below is listed the function names, prtotypes and a brief explantions. More information about the functions can be found in str_lib.h
 
 - STR_LEN
   - `size_t str_len(const char* restrict str);`
@@ -52,7 +51,7 @@ Below is listed the function name, it's prtotype and a brief explantion. More in
 
 - STR_CLONE
   - `char *str_clone(const char *restrict src);`
-  - Clones *src* and returns a pinter to newly allocated string.
+  - Clones *src* and returns a pointer to newly allocated string.
 
 - STR_CONTAINS
   - `int str_contains(const char *restrict test, const char *chars);`
@@ -82,15 +81,15 @@ Below is listed the function name, it's prtotype and a brief explantion. More in
   - Note. modifies the original string.
 
 - STR_SPLIT
-  - `char **str_split(const char *restrict str, char delim);`
-  - Separates *str* to an array of string by *delim*.
+- `char **str_split(const char *restrict str, char delim);`
+  - Separates *str* to an array of strings by *delim*.
   - Does not include the *delim* to the new strings.
 
 - STR_SPLIT_ESCAPE
   - `char **str_split_escape(const char *restrict str, char delim, char escape);`
   - Separates *str* to an array of strings by *delim* but allows the caller to 'escape' some of the *delim* chars by *escape*
-  - This is useful for reading csv-files.
-  - If the amount of *escapes* in the string is odd the result might not be expected.
+  - This functions is useful for reading csv-style files.
+  - If the amount of *escapes* in the string is odd the result might not be as expected.
 
 - STR_SPLIT_INCLUSIVE
   - `char **str_split_inclusive(const char *restrict str, char delim);`
@@ -100,5 +99,5 @@ Below is listed the function name, it's prtotype and a brief explantion. More in
 - STR_WRAP
   - `char **str_wrap(const char *restrict str, size_t n);`
   - Separates *str* to an array of strings that are at maximum *n* characters long.
-  - This is useful for wrapping long string to limited length lines.
+  - This function is useful for wrapping long string to limited length lines.
   - If a word is longer than *n* force wraps the word on two lines.
