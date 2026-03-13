@@ -1,13 +1,13 @@
 # What is it about
 C lacks many useful functions related to strings.
 This repository is to make my life easier by having the string related functions in one place.
+I'm also going to change this to be one header implementation. So it is nice to add to the project without extra compiling.
 Thought probably all of the functions have been implemented before I chose not to use other programmers functions. After all this is also a learning project.
 
 # Information
 - As this is constantly evolving library this list is updated every now and then.
 - All of the functions are prefixed with *str_*.
-- There are some implementations of libc functions which I might delete later. These functions have a bullet point:
-  - "❓Since this is in libc, might delete this later."
+- There are some implementations that are already in the libc this is deliberate since I'm writing all the functions that I find myself useful, and I only have to include this header file.
 
 # Contents
 Below is listed the function names, prototypes and brief explantions. More information about the functions can be found in str_lib.h
@@ -15,7 +15,6 @@ Below is listed the function names, prototypes and brief explantions. More infor
 - STR_LEN
   - `size_t str_len(const char* restrict str);`
   - counts and returns the length of a *str*.
-  - ❓Since this is in libc, might delete this later.
  
 - STR_TRIM
   - `void str_trim(char *restrict str, const char *restrict chars);`
@@ -41,13 +40,11 @@ Below is listed the function names, prototypes and brief explantions. More infor
   - `size_t str_cpy(char *restrict dst, const char *retrict src);`
   - Tries to copy *stc* to *dst* and returns the number of characters copied excluding terminating '\0'.
   - Note. if *src* is longer than *dst* will cause UB.
-  - ❓Since this is in libc, might delete this later.
 
 - STR_NCPY
   - `size_t str_ncpy(char *restrict dst, const char *restrict src, size_t dsize);`
   - Copies at maximum *dsize - 1* characters from *src* to *dst*.
   - Returns the number of characters coied, exluding the terminating '\0'.
-  - ❓Since this is in libc, might delete this later.
 
 - STR_CLONE
   - `char *str_clone(const char *restrict src);`
